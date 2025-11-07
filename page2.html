@@ -3,164 +3,153 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Surprise!</title>
-
+<title>Birthday Surprise!</title>
 <style>
-  html, body {
-      height: 100%;
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-image: url('images/birthday_bg.jpg'); 
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      color: white;
-      position: relative;
-  }
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
 
-  body::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      z-index: 0;
-  }
+  /* Dimmed background image */
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0,0,0,0.5)),
+    url('images/birthday_bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 
-  .title {
-    font-size: 40px;
-    font-weight: bold;
-    color: #ff0066;
-    text-shadow: 0 0 10px #ff0066, 0 0 20px #000000, 0 0 30px #000000;
-    margin-bottom: 20px;
-    position: relative;
-    z-index: 1;
-    opacity: 0; /* hidden initially */
-    transform: translateY(50px);
-    transition: all 1s ease;
-    animation: heartbeat 2s infinite;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  overflow: hidden;
+  touch-action: none;
+}
 
-  @keyframes heartbeat {
-    0% { transform: scale(1); }
-    10% { transform: scale(1.1); }
-    20% { transform: scale(1.15); }
-    30% { transform: scale(1.2); }
-    40% { transform: scale(1.2); }
-    50% { transform: scale(1.15); }
-    60% { transform: scale(1.1); }
-    70% { transform: scale(1.05); }
-    80% { transform: scale(1.03); }
-    90% { transform: scale(1.02); }
-    100% { transform: scale(1); }
-  }
+.title {
+  font-size: 30px;
+  font-weight: bold;
+  color: #ff0066;
+  text-shadow: 0 0 10px #ff0066, 0 0 20px #000, 0 0 30px #000;
+  margin-bottom: 15px;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 1s ease;
+  animation: heartbeat 2s infinite;
+}
 
-  .show-note-btn {
-    padding: 15px 40px;
-    font-size: 20px;
-    border-radius: 25px;
-    border: none;
-    background-color: #ff3399;
-    color: white;
-    cursor: pointer;
-    z-index: 1;
-    transition: opacity 0.5s ease;
-  }
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  20% { transform: scale(1.12); }
+  40% { transform: scale(1.15); }
+  60% { transform: scale(1.12); }
+  80% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
 
-  .show-note-btn:hover { background-color: #ff66cc; }
+.show-note-btn {
+  padding: 12px 30px;
+  font-size: 18px;
+  border-radius: 25px;
+  border: none;
+  background-color: #ff3399;
+  color: white;
+  cursor: pointer;
+  transition: opacity 0.5s ease;
+  z-index: 2;
+}
 
-  .note {
-    max-width: 80%;
-    background: rgba(28, 2, 12, 0.673);
-    border: 2px solid #ff3399;
-    padding: 25px 30px;
-    border-radius: 20px;
-    color: #ffdde6;
-    font-size: 20px;
-    text-shadow: 0 0 5px #ff99cc;
-    box-shadow: 0 0 20px rgba(255,0,102,0.5);
-    position: relative;
-    z-index: 1;
-    opacity: 0; /* hidden initially */
-    transform: translateY(50px);
-    transition: all 1s ease;
-  }
+.show-note-btn:active { transform: scale(0.95); }
+.show-note-btn:hover { background-color: #ff66cc; }
 
-  .note.show { opacity: 1; transform: translateY(0); }
-  .title.show { opacity: 1; transform: translateY(0); }
+.center-area{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  z-index: 10;
+}
 
-  .glow-signature {
-    display: inline-block;
-    font-weight: bold;
-    color: #ff3399;
-    text-shadow: 0 0 5px #ff66cc;
-    animation: signatureGlow 3s infinite alternate;
-    margin-top: 10px;
-  }
+.note {
+  width: 90%;
+  max-height: 50vh; /* restrict to half screen */
+  overflow-y: auto;  /* make scrollable */
+  background: rgba(28, 2, 12, 0.7);
+  border: 2px solid #ff3399;
+  padding: 20px;
+  border-radius: 20px;
+  color: #ffdde6;
+  font-size: 16px;
+  text-shadow: 0 0 5px #ff99cc;
+  box-shadow: 0 0 20px rgba(255,0,102,0.5);
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 1s ease;
+  z-index: 1;
+}
 
-  @keyframes signatureGlow {
-    0% { text-shadow: 0 0 5px #ff66cc; color: #ff3399; }
-    50% { text-shadow: 0 0 20px #ff99cc, 0 0 30px #ff66cc; color: #ff66cc; }
-    100% { text-shadow: 0 0 5px #ff66cc; color: #ff3399; }
-  }
+.note.show { opacity: 1; transform: translateY(0); }
+.title.show { opacity: 1; transform: translateY(0); }
 
-  /* Mobile responsiveness */
-  @media (max-width: 600px) {
-    .title {
-      font-size: 28px;
-      margin-bottom: 15px;
-    }
+.glow-signature {
+  display: inline-block;
+  font-weight: bold;
+  color: #ff3399;
+  text-shadow: 0 0 5px #ff66cc;
+  animation: signatureGlow 3s infinite alternate;
+  margin-top: 10px;
+  font-size: 18px;
+}
 
-    .show-note-btn {
-      padding: 12px 30px;
-      font-size: 18px;
-    }
+@keyframes signatureGlow {
+  0% { text-shadow: 0 0 5px #ff66cc; color: #ff3399; }
+  50% { text-shadow: 0 0 15px #ff99cc, 0 0 25px #ff66cc; color: #ff66cc; }
+  100% { text-shadow: 0 0 5px #ff66cc; color: #ff3399; }
+}
 
-    .note {
-      font-size: 16px;
-      padding: 20px;
-    }
-  }
-
-  @media (max-width: 400px) {
-    .title { font-size: 24px; }
-    .show-note-btn { padding: 10px 25px; font-size: 16px; }
-    .note { font-size: 14px; padding: 15px; }
-  }
-
+/* Mobile tweaks */
+@media (max-width: 400px) {
+  .title { font-size: 20px; margin-bottom: 8px; }
+  .show-note-btn { padding: 10px 25px; font-size: 16px; }
+  .note { font-size: 14px; padding: 12px; }
+  .glow-signature { font-size: 16px; }
+}
 </style>
 </head>
 <body>
 
+<div class="center-area">
   <div class="title" id="title">HAPPY BIRTHDAY BABYYY ❤️❤️</div>
-
   <button class="show-note-btn" id="showBtn">Press Here</button>
-
   <div class="note" id="note">
     BABY,<br>
-    Happy birthday, my love 🎉💖. I am so happy for you 😍.<br> I am not there, but I would hug you a lot 🤗 and give you kisses 😘 for all the efforts that you are doing 💪,<br> for all the struggles you are going through 💛.<br><br>Baby, I know 😔;<br> I see how hard life is, but remember this: I am always there for you 🫂 and I won't leave your side ✨. I will be there for you in your lows and in your highs 🌧️☀️, like you have been for me 💕.<br> You are my treasure that I sought 💎;<br> you are my gold that makes me greedy to have you for myself 🥰. <br>You are my light 🌟, I am attracted to you like a moth 🦋.<br> You inspire me 💫;<br> you make me wonder how I got you, a girl like my dream 🌈.<br> You are that one dream that I never wished to wake up from 🌙, a dream so good my existence itself is attached to it ❤️.<br> Baby, I love you so much 🥹 and I pray you have a wonderful year ahead 🌸. We will go on lots of dates when we meet 💑 and we will celebrate all those missed birthdays 🎂.<br> I love you, baby 💖. Be happy 😘, and if you are sad 😢 I am always there to assure you that you are not alone 🤍. You, my baby, are my love that I can't lose 💘.<br><br>Forever,<br><br> your baby
- <span class="glow-signature">𝓚𝓪𝔃𝓮</span>
+    Happy birthday, my love 🎉💖. I am so happy for you 😍.<br> I am not there, but I would hug you a lot 🤗 and give you kisses 😘 for all the efforts that you are doing 💪,<br> for all the struggles you are going through 💛.<br><br>Baby, I know 😔;<br> I see how hard life is, but remember this: I am always there for you 🫂 and I won't leave your side ✨. I will be there for you in your lows and in your highs 🌧️☀️, like you have been for me 💕.<br> You are my treasure that I sought 💎;<br> you are my gold that makes me greedy to have you for myself 🥰. <br>You are my light 🌟, I am attracted to you like a moth 🦋.<br> You inspire me 💫;<br> you make me wonder how I got you, a girl like my dream 🌈.<br> You are that one dream that I never wished to wake up from 🌙, a dream so good my existence itself is attached to it ❤️.<br> Baby, I love you so much 🥹 and I pray you have a wonderful year ahead 🌸. We will go on lots of dates when we meet 💑 and we will celebrate all those missed birthdays 🎂.<br> I love you, baby 💖. Be happy 😘, and if you are sad 😢 I am always there to assure you that you are not alone 🤍. You, my baby, are my love that I can't lose 💘.<br><br>Forever,<br><br> your baby ❤️❤️
+    <br><br><span class="glow-signature">𝓚𝓪𝔃𝓮</span>
   </div>
+</div>
 
 <script>
-  const btn = document.getElementById('showBtn');
-  const note = document.getElementById('note');
-  const title = document.getElementById('title');
+const btn = document.getElementById('showBtn');
+const note = document.getElementById('note');
+const title = document.getElementById('title');
 
-  btn.addEventListener('click', () => {
-    btn.style.opacity = '0';
-    setTimeout(() => btn.style.display = 'none', 500);
+btn.addEventListener('click', () => {
+  btn.style.opacity = '0';
+  setTimeout(() => btn.style.display = 'none', 500);
 
-    title.classList.add('show');
-    note.classList.add('show');
-  });
+  title.classList.add('show');
+  note.classList.add('show');
+});
 </script>
 
 </body>
