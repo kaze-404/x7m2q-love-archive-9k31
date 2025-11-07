@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BITCH GTFO</title>
+
+    <style>
+        :root{
+          --left-gap: 48px;   /* adjust horizontal distance from left edge */
+          --box-max-width: 480px; /* max width of the text box */
+          --box-padding-vertical: 14px;
+          --box-padding-horizontal: 18px;
+        }
+
+        html,body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            background-image: url('images/else_bg.jpg'); /* put your image file here */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            display: flex;
+            justify-content: flex-start; /* left-ish */
+            align-items: center;          /* vertical center */
+
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        .text-box {
+            margin-left: var(--left-gap);
+            max-width: var(--box-max-width); /* keeps the box narrow */
+            background: rgb(106, 1, 1); /* subtle overlay for readability */
+            padding: var(--box-padding-vertical) var(--box-padding-horizontal);
+            border-radius: 10px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+        }
+
+        h1 {
+            font-size: 20px;   /* smaller headline */
+            margin: 0;
+            line-height: 1.15;
+            font-weight: 700;
+        }
+
+        p {
+            font-size: 14px;   /* smaller body text */
+            margin: 8px 0 0 0;
+            line-height: 1.4;
+            opacity: 0.95;
+        }
+
+        /* responsive tweak for narrow screens */
+        @media (max-width: 520px) {
+          .text-box {
+            margin-left: 20px;
+            max-width: calc(100% - 40px);
+            padding: 12px 14px;
+          }
+          h1 { font-size: 18px; }
+          p  { font-size: 13px; }
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="text-box">
+        <h1>𝖂𝖍𝖆𝖙 𝖜𝖗𝖊𝖙𝖈𝖍 𝖆𝖗𝖙 𝖙𝖍𝖔𝖚, 𝖙𝖍𝖆𝖙 𝖉𝖆𝖗𝖊𝖘 𝖕𝖗𝖔𝖋𝖆𝖓𝖊 𝖒𝖞 𝖉𝖔𝖒𝖆𝖎𝖓? 𝕭𝖊𝖌𝖔𝖓𝖊</h1>
+        <p>𝖈𝖗𝖆𝖜𝖑 𝖇𝖆𝖈𝖐 𝖙𝖔 𝖙𝖍𝖊 𝖒𝖎𝖗𝖊 𝖙𝖍𝖆𝖙 𝖇𝖎𝖗𝖙𝖍𝖊𝖉 𝖙𝖍𝖊𝖊, 𝖑𝖊𝖘𝖙 𝕴 𝖌𝖗𝖎𝖓𝖉 𝖙𝖍𝖊𝖊 𝖙𝖔 𝖉𝖚𝖘𝖙</p>
+    </div>
+
+</body>
+</html>

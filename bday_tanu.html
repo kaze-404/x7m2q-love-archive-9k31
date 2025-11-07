@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Secret Entry</title>
+
+  <style>
+    body {
+      height: 100vh;
+      margin: 0;
+
+      display: flex;
+      justify-content: center;
+      align-items: flex-start; /* 👈 moves content to the top */
+
+      background-image: url('images/yourimage.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      text-align: center;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+
+    .container {
+      margin-top: 80px; /* 👈 push content down a bit */
+    }
+
+    button {
+      padding: 20px 50px;
+      font-size: 24px;
+      border-radius: 30px;
+      background-color: #960034;
+      color: rgb(255, 255, 255);
+      border: none;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: rgb(255, 0, 170);
+      color: black;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin: 0;
+    }
+  </style>
+
+  <script>
+    function checkCode() {
+      let code = prompt("Enter the secret code");
+
+      if (code === "101251") { 
+        window.location.href = "page2.html";
+      } else {
+        window.location.href = "page_else.html";
+      }
+    }
+  </script>
+
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>ʜɪ, ɪ ᴍᴀᴅᴇ ꜱᴏᴍᴇᴛʜɪɴɢ ꜰᴏʀ ʏᴏᴜ ❤️</h1>
+    <button onclick="checkCode()">ᴘʀᴇꜱꜱ ʜᴇʀᴇ</button>
+  </div>
+
+</body>
+</html>
