@@ -94,7 +94,6 @@
   }
 
   .note.show { opacity: 1; transform: translateY(0); }
-
   .title.show { opacity: 1; transform: translateY(0); }
 
   .glow-signature {
@@ -111,6 +110,31 @@
     50% { text-shadow: 0 0 20px #ff99cc, 0 0 30px #ff66cc; color: #ff66cc; }
     100% { text-shadow: 0 0 5px #ff66cc; color: #ff3399; }
   }
+
+  /* Mobile responsiveness */
+  @media (max-width: 600px) {
+    .title {
+      font-size: 28px;
+      margin-bottom: 15px;
+    }
+
+    .show-note-btn {
+      padding: 12px 30px;
+      font-size: 18px;
+    }
+
+    .note {
+      font-size: 16px;
+      padding: 20px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .title { font-size: 24px; }
+    .show-note-btn { padding: 10px 25px; font-size: 16px; }
+    .note { font-size: 14px; padding: 15px; }
+  }
+
 </style>
 </head>
 <body>
@@ -121,8 +145,8 @@
 
   <div class="note" id="note">
     BABY,<br>
-    Happy birthday, my love 🎉💖. I am so happy for you 😍.<br> I am not there, but I would hug you a lot 🤗 and give you kisses 😘 for all the efforts that you are doing 💪,<br> for all the struggles you are going through 💛.<br><br>Baby, I know 😔;<br> I see how hard life is, but remember this: I am always there for you 🫂 and I won't leave your side ✨. I will be there for you in your lows and in your highs 🌧️☀️, like you have been for me 💕.<br> You are my treasure that I sought 💎;<br> you are my gold that makes me greedy to have you for myself 🥰. <br>You are my light 🌟, I am attracted to you like a moth 🦋.<br> You inspire me 💫;<br> you make me wonder how I got you, a girl like my dream 🌈.<br> You are that one dream that I never wished to wake up from 🌙, a dream so good my existence itself is attached to it ❤️.<br> Baby, I love you so much 🥹 and I pray you have a wonderful year ahead 🌸. We will go on lots of dates when we meet 💑 and we will celebrate all those missed birthdays 🎂.<br> I love you, baby 💖. Be happy 😘, and if you are sad 😢 I am always there to assure you that you are not alone 🤍. You, my baby, are my love that I can't lose 💘.<br><br>Forever,<br><br> your baby ❤️❤️
-<br><br><span class="glow-signature">𝓚𝓪𝔃𝓮</span>
+    Happy birthday, my love 🎉💖. I am so happy for you 😍.<br> I am not there, but I would hug you a lot 🤗 and give you kisses 😘 for all the efforts that you are doing 💪,<br> for all the struggles you are going through 💛.<br><br>Baby, I know 😔;<br> I see how hard life is, but remember this: I am always there for you 🫂 and I won't leave your side ✨. I will be there for you in your lows and in your highs 🌧️☀️, like you have been for me 💕.<br> You are my treasure that I sought 💎;<br> you are my gold that makes me greedy to have you for myself 🥰. <br>You are my light 🌟, I am attracted to you like a moth 🦋.<br> You inspire me 💫;<br> you make me wonder how I got you, a girl like my dream 🌈.<br> You are that one dream that I never wished to wake up from 🌙, a dream so good my existence itself is attached to it ❤️.<br> Baby, I love you so much 🥹 and I pray you have a wonderful year ahead 🌸. We will go on lots of dates when we meet 💑 and we will celebrate all those missed birthdays 🎂.<br> I love you, baby 💖. Be happy 😘, and if you are sad 😢 I am always there to assure you that you are not alone 🤍. You, my baby, are my love that I can't lose 💘.<br><br>Forever,<br><br> your baby
+ <span class="glow-signature">𝓚𝓪𝔃𝓮</span>
   </div>
 
 <script>
@@ -131,11 +155,9 @@
   const title = document.getElementById('title');
 
   btn.addEventListener('click', () => {
-    // Hide button
     btn.style.opacity = '0';
     setTimeout(() => btn.style.display = 'none', 500);
 
-    // Show title and note
     title.classList.add('show');
     note.classList.add('show');
   });
