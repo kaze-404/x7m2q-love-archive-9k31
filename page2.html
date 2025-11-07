@@ -1,272 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-<title>Birthday Surprise (mobile)</title>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Surprise!</title>
 <style>
-  :root{
-    --title-size: 28px;   /* change easily for size */
-    --accent: #ff3399;
-  }
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
 
-  /* hide mobile app on large screens and show a message instead */
-  .desktop-only {
-    display: none;
-  }
+  /* Dimmed background image */
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0,0,0,0.5)),
+    url('images/birthday_bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 
-  /* MOBILE-FIRST LAYOUT */
-  html,body{
-    height:100%;
-    margin:0;
-    font-family: Arial, sans-serif;
-    /* dimmed background using gradient + image */
-    background-image:
-      linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
-      url('images/birthday_bg.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: scroll;
-    -webkit-font-smoothing:antialiased;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    color: #fff;
-    overflow:hidden; /* lock scrolling */
-    touch-action: manipulation;
-    -webkit-user-select: none;
-    -ms-touch-action: manipulation;
-  }
-
-  /* container for mobile content (keeps things centered) */
-  .mobile-wrap{
-    width:100%;
-    max-width:520px;
-    padding:18px;
-    box-sizing:border-box;
-    z-index:10;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:14px;
-  }
-
-  /* Title is fixed so pulse scaling won't be clipped by overflow */
-  .title {
-    --size: var(--title-size);
-    position: fixed;
-    left: 50%;
-    top: 10%;
-    transform: translate(-50%, 40px); /* start slightly below center */
-    font-size: var(--size);
-    font-weight:800;
-    line-height:1.05;
-    color: #ff0066;
-    text-shadow: 0 0 12px #ff0066, 0 0 18px rgba(0,0,0,0.7);
-    z-index: 30;
-    opacity: 0;
-    transition: transform 700ms cubic-bezier(.2,.9,.2,1), opacity 600ms ease;
-    transform-origin: center bottom;
-    pointer-events: none;
-    white-space:nowrap;
-  }
-
-  /* heartbeat (higher fps feel) */
-  @keyframes heartbeat {
-    0%{ transform: translate(-50%,0) scale(1); }
-    8%{ transform: translate(-50%,0) scale(1.05); }
-    20%{ transform: translate(-50%,0) scale(1.12); }
-    40%{ transform: translate(-50%,0) scale(1.08); }
-    60%{ transform: translate(-50%,0) scale(1.04); }
-    100%{ transform: translate(-50%,0) scale(1); }
-  }
-
-  /* Press button — centered on initial screen */
-  .center-area {
-  position: absolute;    /* remove from flow so title positioning won't affect it */
-  left: 50%;
-  top: 50%;              /* exact center of viewport */
-  transform: translate(-50%, -50%); /* truly center both axes */
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: bold;
+  color: #ff0066;
+  text-shadow: 0 0 10px #ff0066, 0 0 20px #000, 0 0 30px #000;
+  margin-bottom: 15px;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 1s ease;
+  animation: heartbeat 2s infinite;
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  20% { transform: scale(1.12); }
+  40% { transform: scale(1.15); }
+  60% { transform: scale(1.12); }
+  80% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.show-note-btn {
+  padding: 12px 30px;
+  font-size: 18px;
+  border-radius: 25px;
+  border: none;
+  background-color: #ff3399;
+  color: white;
+  cursor: pointer;
+  transition: opacity 0.5s ease;
+  z-index: 2;
+}
+
+.show-note-btn:active { transform: scale(0.95); }
+.show-note-btn:hover { background-color: #ff66cc; }
+
+.center-area{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 520px;
-  padding: 0 18px;
-  z-index: 25;           /* above bg but below any super-high elements */
-  }
+  z-index: 10;
+}
 
-  .show-note-btn {
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-    padding:12px 28px;
-    font-size:16px;
-    border-radius:24px;
-    border:0;
-    background: var(--accent);
-    color:#fff;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-    cursor: pointer;
-    transition: transform 120ms ease, opacity 400ms ease, background 150ms ease;
-  }
-  .show-note-btn:active{ transform: scale(.97); }
-  /* No :hover reliance for mobile but included subtly for browsers that show hover */
-  .show-note-btn:hover{ background:#ff66cc; }
+.note {
+  width: 90%;
+  max-height: 85vh; /* restrict to half screen */
+  overflow-y: auto;  /* make scrollable */
+  background: rgba(28, 2, 12, 0.7);
+  border: 2px solid #ff3399;
+  padding: 20px;
+  border-radius: 20px;
+  color: #ffdde6;
+  font-size: 16px;
+  text-shadow: 0 0 5px #ff99cc;
+  box-shadow: 0 0 20px rgba(255,0,102,0.5);
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 1s ease;
+  z-index: 1;
+}
 
-  /* Note card (hidden initially) */
-  .note {
-    width:100%;
-    max-width: 92%;
-    margin: 0 auto;
-    background: rgba(15,8,12,0.7);
-    border: 2px solid var(--accent);
-    border-radius:16px;
-    padding:16px;
-    color: #ffdfe9;
-    box-shadow: 0 12px 40px rgba(0,0,0,0.45), 0 0 18px rgba(255,51,153,0.18);
-    font-size:16px;
-    line-height:1.45;
-    transform: translateY(30px) scale(.98);
-    opacity:0;
-    transition: transform 600ms cubic-bezier(.2,.9,.2,1), opacity 500ms ease;
-    z-index:20;
-    word-break:break-word;
-  }
+.note.show { opacity: 1; transform: translateY(0); }
+.title.show { opacity: 1; transform: translateY(0); }
 
-  /* signature glow */
-  .glow-signature{
-    display:inline-block;
-    margin-top:10px;
-    color: var(--accent);
-    font-weight:700;
-    letter-spacing:0.5px;
-    text-shadow: 0 0 6px rgba(255,102,204,.9);
-    animation: sigglow 3s infinite alternate;
-  }
-  @keyframes sigglow {
-    0%{ filter:brightness(0.9); text-shadow:0 0 6px rgba(255,102,204,0.5); }
-    100%{ filter:brightness(1.45); text-shadow:0 0 20px rgba(255,102,204,0.95); }
-  }
+.glow-signature {
+  display: inline-block;
+  font-weight: bold;
+  color: #ff3399;
+  text-shadow: 0 0 5px #ff66cc;
+  animation: signatureGlow 3s infinite alternate;
+  margin-top: 10px;
+  font-size: 18px;
+}
 
-  /* classes toggled by JS */
-  .title.visible{
-    opacity:1;
-    animation: heartbeat 2000ms infinite;
-    transform: translate(-50%, -38vh) scale(1); /* move up to top-ish when shown */
-  }
-  .note.visible{
-    opacity:1;
-    transform: translateY(0) scale(1);
-  }
+@keyframes signatureGlow {
+  0% { text-shadow: 0 0 5px #ff66cc; color: #ff3399; }
+  50% { text-shadow: 0 0 15px #ff99cc, 0 0 25px #ff66cc; color: #ff66cc; }
+  100% { text-shadow: 0 0 5px #ff66cc; color: #ff3399; }
+}
 
-  /* SMALL SCREEN ADJUSTMENTS (strict mobile) */
-  @media (max-width:420px){
-    :root{ --title-size: 24px; }
-    .note{ font-size:15px; padding:14px; border-radius:14px; }
-    .show-note-btn{ padding:10px 26px; font-size:15px; border-radius:20px; }
-  }
-
-  /* DESKTOP: hide mobile UI and show a message so desktop isn't blank */
-  @media (min-width: 700px){
-    html,body{ background-size: cover; }
-    .mobile-wrap{ display:none; }
-    .desktop-only{
-      display:flex;
-      position:fixed;
-      inset:0;
-      align-items:center;
-      justify-content:center;
-      padding:20px;
-      background:linear-gradient(0deg, rgba(0,0,0,0.65), rgba(0,0,0,0.35));
-      color:#fff;
-      z-index:9999;
-      text-align:center;
-      font-size:18px;
-      line-height:1.3;
-      gap:14px;
-      flex-direction:column;
-    }
-    .desktop-only .msg{ max-width:680px; }
-  }
+/* Mobile tweaks */
+@media (max-width: 400px) {
+  .title { font-size: 20px; margin-bottom: 8px; }
+  .show-note-btn { padding: 10px 25px; font-size: 16px; }
+  .note { font-size: 14px; padding: 12px; }
+  .glow-signature { font-size: 16px; }
+}
 </style>
 </head>
 <body>
 
-<!-- Desktop fallback so it is NOT blank on laptops -->
-<div class="desktop-only" aria-hidden="false">
-  <div class="msg">
-    Open this page on your mobile phone for the surprise — it’s optimized for phones 📱💕<br>
-    (If you still want to preview on desktop, just resize the browser narrower than ~700px.)
-  </div>
-</div>
-
-<!-- MOBILE CONTENT -->
-<div class="mobile-wrap" role="main" aria-live="polite">
-  <!-- Title is fixed, initially hidden (will animate from center to top) -->
+<div class="center-area">
   <div class="title" id="title">HAPPY BIRTHDAY BABYYY ❤️❤️</div>
-
-  <!-- Center area holds the initial visible UI: a big press button -->
-  <div class="center-area" id="center">
-    <button class="show-note-btn" id="showBtn" aria-label="Open surprise">Press Here</button>
-    <!-- optional small hint visible on load so screen isn't too empty -->
-    <small style="opacity:.85; color:#ffdfe9; margin-top:6px; font-size:13px;">Tap to reveal the surprise ✨</small>
-  </div>
-
-  <!-- Note card (hidden until reveal) -->
-  <div class="note" id="note" aria-hidden="true">
+  <button class="show-note-btn" id="showBtn">Press Here</button>
+  <div class="note" id="note">
     BABY,<br>
-    Happy birthday, my love 🎉💖. I am so happy for you 😍.<br> I am not there, but I would hug you a lot 🤗 and give you kisses 😘 for all the efforts that you are doing 💪,<br> for all the struggles you are going through 💛.<br><br>Baby, I know 😔;<br> I see how hard life is, but remember this: I am always there for you 🫂 and I won't leave your side ✨. I will be there for you in your lows and in your highs 🌧️☀️, like you have been for me 💕.<br> You are my treasure that I sought 💎;<br> you are my gold that makes me greedy to have you for myself 🥰. <br>You are my light 🌟, I am attracted to you like a moth 🦋.<br> You inspire me 💫;<br> you make me wonder how I got you, a girl like my dream 🌈.<br> You are that one dream that I never wished to wake up from 🌙, a dream so good my existence itself is attached to it ❤️.<br> Baby, I love you so much 🥹 and I pray you have a wonderful year ahead 🌸. We will go on lots of dates when we meet 💑 and we will celebrate all those missed birthdays 🎂.<br> I love you, baby 💖. Be happy 😘, and if you are sad 😢 I am always there to assure you that you are not alone 🤍. You, my baby, are my love that I can't lose 💘.<br><br>Forever,<br<br> your baby ❤️❤️
-    <span class="glow-signature">𝓚𝓪𝔃𝓮</span>
+    Happy birthday, my love 🎉💖. I am so happy for you 😍.<br> I am not there, but I would hug you a lot 🤗 and give you kisses 😘 for all the efforts that you are doing 💪,<br> for all the struggles you are going through 💛.<br><br>Baby, I know 😔;<br> I see how hard life is, but remember this: I am always there for you 🫂 and I won't leave your side ✨. I will be there for you in your lows and in your highs 🌧️☀️, like you have been for me 💕.<br> You are my treasure that I sought 💎;<br> you are my gold that makes me greedy to have you for myself 🥰. <br>You are my light 🌟, I am attracted to you like a moth 🦋.<br> You inspire me 💫;<br> you make me wonder how I got you, a girl like my dream 🌈.<br> You are that one dream that I never wished to wake up from 🌙, a dream so good my existence itself is attached to it ❤️.<br> Baby, I love you so much 🥹 and I pray you have a wonderful year ahead 🌸. We will go on lots of dates when we meet 💑 and we will celebrate all those missed birthdays 🎂.<br> I love you, baby 💖. Be happy 😘, and if you are sad 😢 I am always there to assure you that you are not alone 🤍. You, my baby, are my love that I can't lose 💘.<br><br>Forever,<br><br> your baby ❤️❤️
+    <br><br><span class="glow-signature">𝓚𝓪𝔃𝓮</span>
   </div>
 </div>
 
 <script>
-  // Strict mobile behaviour: simple reveal flow
-  (function(){
-    const btn = document.getElementById('showBtn');
-    const title = document.getElementById('title');
-    const note  = document.getElementById('note');
-    const center = document.getElementById('center');
+const btn = document.getElementById('showBtn');
+const note = document.getElementById('note');
+const title = document.getElementById('title');
 
-    // On first touch/click — reveal title + note, hide button
-    btn.addEventListener('click', function(){
-      // fade out the centered area (button)
-      center.style.transition = 'opacity 300ms ease, transform 500ms ease';
-      center.style.opacity = '0';
-      center.style.transform = 'scale(.96) translateY(6px)';
+btn.addEventListener('click', () => {
+  btn.style.opacity = '0';
+  setTimeout(() => btn.style.display = 'none', 500);
 
-      // show title and move it up
-      setTimeout(()=>{
-        title.classList.add('visible');
-      }, 160);
-
-      // show note after small delay for dramatic entrance
-      setTimeout(()=>{
-        note.classList.add('visible');
-        note.setAttribute('aria-hidden','false');
-      }, 560);
-
-      // remove the button after animations
-      setTimeout(()=> {
-        center.style.display = 'none';
-      }, 800);
-    });
-
-    // Prevent double-tap zoom on iOS & unwanted gestures
-    (function preventGestures(){
-      document.addEventListener('gesturestart', function(e){ e.preventDefault(); });
-      document.addEventListener('touchmove', function(e){
-        // allow vertical small scroll inside note if content overflows (but we locked overflow on body)
-        // we keep it simple: prevent general page dragging
-        e.preventDefault();
-      }, { passive: false });
-    })();
-  })();
+  title.classList.add('show');
+  note.classList.add('show');
+});
 </script>
 
 </body>
