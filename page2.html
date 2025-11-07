@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Birthday Surprise!</title>
 <style>
 html, body {
@@ -11,7 +11,7 @@ html, body {
   font-family: Arial, sans-serif;
 
   /* Dimmed background image */
-  background-image: 
+  background-image:
     linear-gradient(rgba(0, 0, 0, 0.5), rgba(0,0,0,0.5)),
     url('images/birthday_bg.jpg');
   background-size: cover;
@@ -29,43 +29,7 @@ html, body {
   touch-action: none;
 }
 
-.title {
-  font-size: 30px;
-  font-weight: bold;
-  color: #ff0066;
-  text-shadow: 0 0 10px #ff0066, 0 0 20px #000, 0 0 30px #000;
-  margin-bottom: 15px;
-  z-index: 2;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 1s ease;
-  animation: heartbeat 2s infinite;
-}
-
-@keyframes heartbeat {
-  0% { transform: scale(1); }
-  20% { transform: scale(1.12); }
-  40% { transform: scale(1.15); }
-  60% { transform: scale(1.12); }
-  80% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-
-.show-note-btn {
-  padding: 12px 30px;
-  font-size: 18px;
-  border-radius: 25px;
-  border: none;
-  background-color: #ff3399;
-  color: white;
-  cursor: pointer;
-  transition: opacity 0.5s ease;
-  z-index: 2;
-}
-
-.show-note-btn:active { transform: scale(0.95); }
-.show-note-btn:hover { background-color: #ff66cc; }
-
+/* center container */
 .center-area{
   position: absolute;
   left: 50%;
@@ -80,10 +44,51 @@ html, body {
   z-index: 10;
 }
 
+/* title */
+.title {
+  font-size: 30px;
+  font-weight: bold;
+  color: #ff0066;
+  text-shadow: 0 0 10px #ff0066, 0 0 20px #000, 0 0 30px #000;
+  margin-bottom: 15px;
+  z-index: 30;           /* keep above the note */
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 1s ease;
+  animation: heartbeat 2s infinite;
+}
+
+/* heartbeat */
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  20% { transform: scale(1.12); }
+  40% { transform: scale(1.15); }
+  60% { transform: scale(1.12); }
+  80% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* button */
+.show-note-btn {
+  padding: 12px 30px;
+  font-size: 18px;
+  border-radius: 25px;
+  border: none;
+  background-color: #ff3399;
+  color: white;
+  cursor: pointer;
+  transition: opacity 0.5s ease;
+  z-index: 20;
+}
+.show-note-btn:active { transform: scale(0.95); }
+.show-note-btn:hover { background-color: #ff66cc; }
+
+/* NOTE: taller, scrollable */
 .note {
   width: 90%;
-  max-height: 85vh; /* restrict to half screen */
-  overflow-y: auto;  /* make scrollable */
+  max-height: 80vh;            /* <-- changed: tall (80% of viewport) */
+  overflow-y: auto;            /* make scrollable */
+  -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
   background: rgba(28, 2, 12, 0.7);
   border: 2px solid #ff3399;
   padding: 20px;
@@ -95,12 +100,14 @@ html, body {
   opacity: 0;
   transform: translateY(50px);
   transition: all 1s ease;
-  z-index: 1;
+  z-index: 10;
 }
 
+/* visible classes */
 .note.show { opacity: 1; transform: translateY(0); }
 .title.show { opacity: 1; transform: translateY(0); }
 
+/* signature glow */
 .glow-signature {
   display: inline-block;
   font-weight: bold;
@@ -110,7 +117,6 @@ html, body {
   margin-top: 10px;
   font-size: 18px;
 }
-
 @keyframes signatureGlow {
   0% { text-shadow: 0 0 5px #ff66cc; color: #ff3399; }
   50% { text-shadow: 0 0 15px #ff99cc, 0 0 25px #ff66cc; color: #ff66cc; }
