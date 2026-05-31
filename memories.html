@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Our Memories</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500&display=swap');
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: #fff7ee;
+      background:
+        linear-gradient(180deg, rgba(2,8,26,.36), #06132d 42rem, #020a1c),
+        url("images/anniversary_sky.jpg") center top / 100% auto no-repeat,
+        #02091b;
+      font-family: Inter, Arial, sans-serif;
+    }
+    main { width: min(1050px, calc(100% - 28px)); margin: 0 auto; padding: 24px 0 50px; }
+    a { color: #ff91b7; text-decoration: none; }
+    h1 { margin: 52px 0 4px; color: #ff91b7; font: 700 clamp(62px, 11vw, 118px)/.9 Caveat, cursive; }
+    p { margin: 0 0 28px; color: #d7d9e5; }
+    .gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px; }
+    .placeholder {
+      min-height: 190px;
+      display: grid;
+      place-items: center;
+      border: 1px dashed rgba(255,145,183,.52);
+      border-radius: 12px;
+      color: rgba(255,255,255,.66);
+      background: rgba(9,23,54,.72);
+      text-align: center;
+    }
+    @media (max-width: 760px) { .gallery { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 420px) { .placeholder { min-height: 145px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <a href="anniversary.html">&larr; Back to our story</a>
+    <h1>Our Memories</h1>
+    <p>Your photos will be added here later.</p>
+    <section class="gallery">
+      <div class="placeholder">Photo preview</div><div class="placeholder">Photo preview</div>
+      <div class="placeholder">Photo preview</div><div class="placeholder">Photo preview</div>
+      <div class="placeholder">Photo preview</div><div class="placeholder">Photo preview</div>
+      <div class="placeholder">Photo preview</div><div class="placeholder">Photo preview</div>
+      <div class="placeholder">Photo preview</div><div class="placeholder">Photo preview</div>
+      <div class="placeholder">Photo preview</div><div class="placeholder">Photo preview</div>
+    </section>
+  </main>
+</body>
+</html>
